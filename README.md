@@ -26,3 +26,44 @@ Beberapa manfaat utama dari sistem ini meliputi:
 - Adomavicius, G., & Tuzhilin, A. (2005). Toward the next generation of recommender systems: A survey of the state-of-the-art and possible extensions. IEEE Transactions on knowledge and data engineering, 17(6), 734-749 [Link](https://pages.stern.nyu.edu/~atuzhili/pdf/TKDE-Paper-as-Printed.pdf)
 - Aggarwal, C. C. (2016). Recommender Systems: The Textbook. Springer. https://doi.org/10.1007/978-3-319-29659-3 [Link](https://pzs.dstu.dp.ua/DataMining/recom/bibl/1aggarwal_c_c_recommender_systems_the_textbook.pdf)
 - Ricci, F., Rokach, L., & Shapira, B. (2015). Recommender Systems Handbook. Springer. https://doi.org/10.1007/978-1-4899-7637-6 [Link](https://pzs.dstu.dp.ua/DataMining/recom/bibl/recommendersystemshandbook.pdf)
+
+---
+
+## Business Understanding
+### Problem Statement
+Pasar smartphone saat ini sangat kompetitif dengan berbagai merek dan model yang menawarkan spesifikasi yang beragam. Konsumen seringkali kesulitan dalam memilih smartphone yang paling sesuai dengan kebutuhan dan preferensi mereka. Tanpa sistem rekomendasi yang efektif, konsumen dapat merasa kewalahan dengan banyaknya pilihan dan kesulitan dalam membandingkan spesifikasi yang relevan.
+
+Dalam penelitian ini, beberapa pertanyaan utama yang akan dijawab adalah:
+
+1. Bagaimana cara mengidentifikasi fitur-fitur spesifikasi smartphone yang paling relevan dengan preferensi pengguna?
+2. Bagaimana cara membangun sistem rekomendasi yang efektif berdasarkan spesifikasi smartphone menggunakan pendekatan content-based filtering?
+3. Model atau algoritma apa yang paling efektif dalam memberikan rekomendasi smartphone berdasarkan spesifikasi?
+
+### Goals
+Untuk mengatasi permasalahan di atas, penelitian ini bertujuan untuk:
+
+1. Mengidentifikasi dan mengekstraksi fitur-fitur spesifikasi smartphone yang relevan dari dataset.
+2. Membangun sistem rekomendasi smartphone menggunakan pendekatan content-based filtering yang dapat memberikan rekomendasi yang dipersonalisasi berdasarkan preferensi pengguna.
+3. Mengevaluasi kinerja model rekomendasi menggunakan algoritma WSM (Weighted Sum Model) dan LTR (Learning to Rank) untuk menentukan model terbaik.
+
+### Solution Statement
+Untuk mencapai tujuan tersebut, penelitian ini mengusulkan beberapa solusi:
+
+1. Eksplorasi dan Preprocessing Data
+- Mengumpulkan dataset spesifikasi smartphone dari sumber terpercaya.
+- Menganalisis fitur-fitur spesifikasi smartphone untuk memahami karakteristik dan relevansinya menggunakan EDA.
+- Melakukan preprocessing data, termasuk penanganan missing values, normalisasi data numerik, dan encoding fitur kategorikal.
+  
+2. Pemodelan dengan Content-Based Filtering
+- Menggunakan pendekatan content-based filtering untuk merekomendasikan smartphone berdasarkan kesamaan spesifikasi.
+- Menerapkan algoritma WSM (Weighted Sum Model) untuk memberikan bobot pada fitur-fitur spesifikasi berdasarkan preferensi pengguna.
+- Menerapkan algoritma LTR (Learning to Rank) untuk mengurutkan smartphone berdasarkan relevansi dengan preferensi pengguna.
+  
+3. Evaluasi Model
+- Evaluasi dilakukan dengan menggunakan metrik **Precision**, yang mengukur sejauh mana rekomendasi yang diberikan oleh sistem sesuai dengan kriteria yang telah ditentukan. Precision mengukur proporsi rekomendasi yang benar-benar relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Tiap baris dianalisis untuk ditentukan apakah sesuai dengan kriteria apa tidak.
+
+Formula perhitungan precision:
+![image.png](attachment:e22b619e-6479-44cb-9298-efd2266cba3c.png)
+- Membandingkan kinerja model WSM dan LTR untuk menentukan model terbaik.
+  
+Dengan pendekatan ini, sistem rekomendasi smartphone yang dikembangkan diharapkan dapat memberikan rekomendasi yang akurat dan relevan berdasarkan spesifikasi smartphone, membantu konsumen dalam membuat keputusan pembelian yang lebih baik.
