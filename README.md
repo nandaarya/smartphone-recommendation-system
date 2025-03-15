@@ -63,7 +63,8 @@ Untuk mencapai tujuan tersebut, penelitian ini mengusulkan beberapa solusi:
 - Evaluasi dilakukan dengan menggunakan metrik **Precision**, yang mengukur sejauh mana rekomendasi yang diberikan oleh sistem sesuai dengan kriteria yang telah ditentukan. Precision mengukur proporsi rekomendasi yang benar-benar relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Tiap baris dianalisis untuk ditentukan apakah sesuai dengan kriteria apa tidak.
 
 Formula perhitungan precision:
-![image.png](attachment:e22b619e-6479-44cb-9298-efd2266cba3c.png)
+![image](https://github.com/user-attachments/assets/fcae75e3-eb7e-4443-8d54-134f47ffc93b)
+
 - Membandingkan kinerja model WSM dan LTR untuk menentukan model terbaik.
   
 Dengan pendekatan ini, sistem rekomendasi smartphone yang dikembangkan diharapkan dapat memberikan rekomendasi yang akurat dan relevan berdasarkan spesifikasi smartphone, membantu konsumen dalam membuat keputusan pembelian yang lebih baik.
