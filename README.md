@@ -63,6 +63,7 @@ Untuk mencapai tujuan tersebut, penelitian ini mengusulkan beberapa solusi:
 - Evaluasi dilakukan dengan menggunakan metrik **Precision**, yang mengukur sejauh mana rekomendasi yang diberikan oleh sistem sesuai dengan kriteria yang telah ditentukan. Precision mengukur proporsi rekomendasi yang benar-benar relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Tiap baris dianalisis untuk ditentukan apakah sesuai dengan kriteria apa tidak.
 
 Formula perhitungan precision:
+
 ![image](https://github.com/user-attachments/assets/fcae75e3-eb7e-4443-8d54-134f47ffc93b)
 
 - Membandingkan kinerja model WSM dan LTR untuk menentukan model terbaik.
@@ -190,9 +191,11 @@ Fitur numerik dalam dataset meliputi **Mobile Weight (g), RAM (GB), Front Camera
 Sementara itu, fitur kategorikal terdiri dari Company Name, Model Name, dan Processor, yang berisi nilai dalam bentuk kategori atau label.
 
 1. Fitur Kategori
+   
    ![image](https://github.com/user-attachments/assets/8bea56ac-fc49-4e9a-ba4c-2a9b873b9436)
    ![image](https://github.com/user-attachments/assets/fbe88b23-d498-4b05-b46e-e87ac796c8eb)
    ![image](https://github.com/user-attachments/assets/8c984e72-51a1-4272-9fb6-d790afc06ba5)
+   
    Dari visualisasi distribusi data fitur-fitur kategorikal di atas dapat disimpulkan bahwa:
    - Fitur Company Name: Oppo merupakan merek dengan jumlah ponsel terbanyak (13.9%), diikuti oleh Apple (10.4%) dan Honor (9.8%). Merek seperti iQOO (0.3%) dan Sony (1.0%) memiliki jumlah sampel paling sedikit.
    - Fitur Model Name: Dataset memiliki 908 model unik, dengan sebagian besar model hanya memiliki 1 atau 2 sampel. Hal ini menunjukkan bahwa dataset sangat bervariasi dalam hal model ponsel.
@@ -200,7 +203,9 @@ Sementara itu, fitur kategorikal terdiri dari Company Name, Model Name, dan Proc
    - Distribusi Model & Processor: Banyak model dan prosesor memiliki jumlah sampel yang sangat sedikit, menunjukkan bahwa dataset mencakup berbagai varian ponsel dengan spesifikasi yang beragam.
 
 2. Fitur Numerik
+   
    ![image](https://github.com/user-attachments/assets/e0fc002a-ebff-4557-b57c-4f3863293af4)
+   
    Dari visualisasi distribusi data fitur-fitur numerik diatas dapat disimpulkan bahwa:
    - Mobile Weight (g)
      - Sample terbanyak ada di value Mobile Weight sekitar 190g
@@ -243,14 +248,18 @@ Sementara itu, fitur kategorikal terdiri dari Company Name, Model Name, dan Proc
 Langkah selanjutnya adalah melakukan Multivariate Analysis. Multivariate Analysis adalah teknik analisis statistik yang digunakan untuk memahami hubungan antara dua atau lebih variabel dalam suatu dataset. Tujuan utama analisis ini adalah untuk mengidentifikasi pola, hubungan, atau korelasi antara fitur, sehingga dapat membantu dalam pemodelan prediktif dan pengambilan keputusan. Fitur Launched Price (China/CNY) dipilih sebagai target analisis korelasi karena China adalah produsen terbesar smartphone terbesar didunia.
 
 1. Fitur Kagetori
+   
    ![image](https://github.com/user-attachments/assets/53dac2ff-e1dd-4829-9320-f426017a5747)
+
    Dari catplot visualisasi hubungan antara fitur price dengan fitur-fitur kategorikal diatas dapat disimpulkan bahwa:
    - Pada fitur ‘Company Name’, ada perbedaan rata-rata harga. beberapa company name yaitu apple, huawei, sony, dan google memiliki rata-rata harga yang lebih tinggi daripada brand lainnya. Sehingga kemungkinan fitur company name memiliki pengaruh atau dampak yang cukup besar terhadap rata-rata harga.
    - Pada fitur ‘Model’, ada banyak kategori dan tidak banyak perbedaan rata-rata harga. Hanya ada beberapa model yang memiliki perbedaan harga yang signifikan. Sehingga kemungkinan fitur brand memiliki pengaruh atau dampak yang cukup kecil terhadap rata-rata harga.
    - Pada fitur ‘Processor’, ada banyak kategori dan tidak banyak perbedaan rata-rata harga. Hanya ada beberapa processor yang memiliki perbedaan harga yang signifikan. Sehingga kemungkinan fitur brand memiliki pengaruh atau dampak yang cukup kecil terhadap rata-rata harga.
 
 2. Fitur Numerik
+   
   ![image](https://github.com/user-attachments/assets/8d7a8db5-6261-439d-84d5-0115404f15cd)
+
   Dari grafik pairplot diatas, jika fokus pada sumbu "Launched Price (China/CNY)" dimana merupakan fitur target, dapat disimpulkan bahwa:
   * Fitur mobile weight (g), Battery Capacity, dan Screen Size memiliki korelasi positif dengan fitur Launched Price (China/CNY) walaupun tidak terlalu terlihat.
   * Fitur Performance Score memiliki korelasi positif dengan fitur Launched Price (China/CNY).
@@ -258,6 +267,7 @@ Langkah selanjutnya adalah melakukan Multivariate Analysis. Multivariate Analysi
   * Fitur yang tersisa, Launched Price (Pakistan/PKR), Launched Price (India/INR), Launched Price (USA/USD), dan Launched Price (Dubai/AED) tidak memiliki korelasi dengan fitur Launched Price (China/CNY) karena sebenarnya fitur-fitur tersebut sama-sama merepresentasikan harga, hanya dalam daerah atau mata uang yang berbeda.
     
   ![image](https://github.com/user-attachments/assets/e485d3d1-53f6-4f71-a062-9db93af4d023)
+  
   Untuk lebih jelasnya, dapat diamati grafik korelasi diatas. Dapat disimpulkan bahwa:
   * Hanya fitur RAM yang memiliki korelasi yang cukup kuat (0.43) dengan Launched Price (China/CNY), Kecuali fitur Launched Price negara lain.
   * Fitur Mobile Weight memiliki korelasi yang sangat kuat (0.98) dengan Screen Size (Inches) dan korelasi kuat (0.85) dengan Battery Capacity.
@@ -273,7 +283,9 @@ Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan t
    - Fitur Processor sudah tidak diperlukan karena sudah ada fitur Performance Score yang merepresentasikan kemampuan processor smartphone.
      
 2. Menangani Missing Values & Outliers
+   
    ![image](https://github.com/user-attachments/assets/5e250bab-61cf-4dab-806b-0183dd295c3d)
+   
    Kode diatas berfungsi untuk melihat apakah ada missing values pada dataset. Setelah dijalankan, ternyata pada kolom performance score terdapat 135. Hal ini mungkin dikarenakan kurang lengkapnya dataset kedua yang sebelumnya digabungkan, sehingga ada data yang kosong. Diputuskan untuk menghapus data dengan missing values dan tidak dilakukan imputasi demi menjaga relevansi dan validitas data kolom Performance Score karena sangat penting.
    - Metode yang digunakan untuk menangani outliers adalah Box-Cox Transformation.
      Box-Cox Transformation adalah teknik yang digunakan untuk menormalkan distribusi data dan mengurangi pengaruh outliers dengan menerapkan transformasi non-linear pada fitur numerik yang hanya memiliki nilai positif.
