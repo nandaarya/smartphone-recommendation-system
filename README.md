@@ -319,4 +319,120 @@ Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan t
    Langkah terakhir adalah melakukan Standarisasi. Standarisasi adalah proses transformasi data numerik agar memiliki skala yang seragam, biasanya dengan mean (rata-rata) = 0 dan standar deviasi = 1. Tujuannya adalah untuk memastikan bahwa setiap fitur memiliki kontribusi yang seimbang dalam model machine learning, terutama jika fitur memiliki skala atau unit yang berbeda. Teknik yang digunakan adalah Standar Scaler. Alasannya adalah untuk menghindari skala yang terlalu besar pada fitur tertentu, yang dapat memengaruhi performa model.
 
 ## Modelling
+Setelah melakukan Data Preparation, selanjutnya adalah melakukan modelling machine learning. Modelling dalam sistem rekomendasi adalah proses membangun metode yang dapat memberikan rekomendasi berdasarkan preferensi dan kebutuhan pengguna. Dalam kasus ini, sistem rekomendasi yang dibuat menggunakan pendekatan Content-Based Filtering. Hal ini dikarenakan dataset yang digunakan hanya berisi fitur-fitur mengenai content/item yang berupa spesifikasi smartphone. Model atau algoritma yang digunakan adalah **Weighted Sum Model (WSM)** dan **Learning to Rank (LTR)**.
+
+1. Weight Sum Model (WSM): Menggunakan metode pembobotan fitur untuk menghitung skor rekomendasi berdasarkan preferensi pengguna.
+   Formula WSM:
+
+   ![image](https://github.com/user-attachments/assets/5da3480c-677c-4d4b-866c-f41b7dba0534)
+
+   Dimana:
+   ![image](https://github.com/user-attachments/assets/de93e176-afcb-45d9-a926-e1f04a8536da)
+
+2. Learning to Rank (LTR): Menggunakan pendekatan machine learning untuk menyusun peringkat smartphone.
+
+### **Kelebihan dan Kekurangan WSM & LTR**
+
+**1. Weight Sum Model (WSM)**
+
+#### **Kelebihan WSM**
+- **Mudah Dipahami & Diimplementasikan**: Perhitungan sederhana dengan menjumlahkan nilai berbobot.
+- **Cepat dalam Komputasi**: Tidak memerlukan pelatihan model, hanya normalisasi dan perhitungan skor.
+- **Dapat Dikustomisasi**: Bobot fitur bisa disesuaikan dengan preferensi pengguna (gaming, photography, normal usage).
+- **Tidak Membutuhkan Data Latih**: Bisa digunakan langsung tanpa memerlukan dataset historis.
+
+#### **Kekurangan WSM**
+- **Bobot Statis**: Tidak dapat beradaptasi dengan pola data secara otomatis.
+- **Tidak Menangkap Hubungan Kompleks Antar Fitur**: Hubungan non-linear antar fitur tidak dapat ditangkap dengan baik.
+- **Sensitif terhadap Normalisasi**: Hasil bisa sangat dipengaruhi oleh metode normalisasi yang digunakan.
+- **Tidak Belajar dari Feedback Pengguna**: Tidak bisa memperbaiki rekomendasi berdasarkan interaksi pengguna sebelumnya.
+
+---
+
+### **2. Learning to Rank (LTR)**
+
+#### **Kelebihan LTR**
+- **Dapat Menangkap Hubungan Kompleks Antar Fitur**: Mampu memahami pola non-linear yang tidak bisa ditangkap oleh metode berbasis aturan seperti WSM.
+- **Adaptif**: Model dapat belajar dari data historis dan menyesuaikan bobot fitur berdasarkan performa sebelumnya.
+- **Meningkatkan Akurasi Rekomendasi**: Lebih efektif dalam memberikan urutan rekomendasi yang lebih relevan dibandingkan metode sederhana.
+- **Mampu Menyesuaikan Diri dengan Preferensi Pengguna**: Bisa terus belajar dari umpan balik pengguna untuk meningkatkan rekomendasi di masa depan.
+
+#### **Kekurangan LTR**
+- **Membutuhkan Data Latih**: Harus memiliki dataset yang cukup besar untuk menghasilkan model yang akurat.
+- **Lebih Kompleks & Butuh Sumber Daya Komputasi Lebih Besar**: Dibandingkan WSM, LTR memerlukan proses training yang lebih berat.
+- **Sulit untuk Dijelaskan**: Model machine learning bisa menjadi black box dan sulit menjelaskan alasan di balik rekomendasi.
+
+### **Pembobotan Fitur dalam Weight Sum Model (WSM) & Learning to Rank (LTR)**  
+
+Dalam sistem rekomendasi smartphone ini, **pembobotan fitur** digunakan untuk dua pendekatan yang berbeda:  
+1. **Weight Sum Model (WSM)** → Menggunakan pembobotan untuk menjumlahkan skor tiap fitur dan menghasilkan rekomendasi berbasis skor akhir.  
+2. **Learning to Rank (LTR)** → Menggunakan pembobotan sebagai faktor dalam model pembelajaran mesin yang mempelajari hubungan antar fitur untuk melakukan pemeringkatan smartphone.  
+
+### **Pembobotan untuk Setiap Preferensi Pengguna**  
+
+**1. Gaming**  
+- **Performance Score (60%)** → Faktor utama untuk gaming adalah performa prosesor dan GPU.  
+- **RAM (20%)** → RAM besar membantu dalam multitasking dan menjalankan game berat.  
+- **Battery Capacity (12%)** → Daya tahan baterai sangat penting untuk sesi gaming yang lama.  
+- **Launched Year (8%)** → Ponsel yang lebih baru biasanya memiliki chipset dan teknologi yang lebih optimal untuk gaming.  
+- **Screen Size (0.5%)** → Layar besar lebih nyaman untuk pengalaman gaming.  
+- **Back Camera (0.2%) & Front Camera (0.1%)** → Kamera kurang penting untuk gaming tetapi tetap diperhitungkan sedikit.  
+- **Mobile Weight (0.2%)** → Ponsel yang terlalu berat dapat mengurangi kenyamanan saat bermain game dalam waktu lama.  
+
+**2. Photography**  
+- **Back Camera (35%) & Front Camera (35%)** → Kamera belakang dan depan sangat penting untuk fotografi dan selfie.  
+- **RAM (8%)** → Membantu dalam pemrosesan gambar dan video.  
+- **Performance Score (8%)** → Performa tetap diperhitungkan karena mempengaruhi pemrosesan foto/video.  
+- **Launched Year (10%)** → Model yang lebih baru sering memiliki teknologi kamera yang lebih baik.  
+- **Screen Size (3%)** → Layar besar memudahkan dalam mengedit dan melihat foto.  
+- **Battery Capacity (2%)** → Berguna untuk penggunaan kamera dalam waktu lama.  
+- **Mobile Weight (1%)** → Ponsel yang ringan lebih nyaman untuk fotografi mobile.  
+
+**3. Normal Usage**  
+- **Battery Capacity (30%)** → Ketahanan baterai adalah faktor utama untuk penggunaan sehari-hari.  
+- **Performance Score (28%)** → Performa tetap penting untuk kelancaran penggunaan aplikasi sehari-hari.  
+- **RAM (15%)** → Menjamin multitasking yang lancar.  
+- **Mobile Weight (10%)** → Ponsel yang terlalu berat bisa kurang nyaman untuk penggunaan jangka panjang.  
+- **Launched Year (12%)** → Ponsel yang lebih baru sering memiliki optimasi daya dan fitur terbaru.  
+- **Screen Size (3%)** → Layar cukup penting untuk kenyamanan penggunaan.  
+- **Back Camera (1.5%) & Front Camera (0.5%)** → Kamera tetap dipertimbangkan tetapi bukan faktor utama.  
+
+### **Peran Pembobotan dalam WSM & LTR**  
+- **Dalam WSM** → Pembobotan digunakan untuk menghitung skor akhir dengan metode **penjumlahan berbobot** dari semua fitur.  
+- **Dalam LTR** → Pembobotan digunakan sebagai **feature importance** dalam algoritma machine learning yang belajar dari data ranking dan menghasilkan pemeringkatan yang lebih optimal berdasarkan hubungan antar fitur.
+
+### Result
+Saat pemodelan sudah selesai dilakukan, model dicoba dengan memberikan rekomendasi untuk preferensi "Gaming" dengan harga maksimal "2500" dalam harga asli CNY. Hasilnya muncul Top-10 Recommendation dari masing-masing model sebagai berikut:
+
+#### Model 1: Weight Sum Model (WSM)
+
+| Model Name                  | Mobile Weight (g) | RAM (GB) | Front Camera (MP) | Back Camera (MP) | Battery Capacity (mAh) | Screen Size (inches) | Launched Price (China/CNY) | Launched Year | Performance Score | Score (Gaming) | Score (Photography) | Score (Normal Usage) | **WSM Score** |
+|-----------------------------|-------------------|---------|------------------|-----------------|--------------------|-----------------|----------------------------|---------------|-----------------|----------------|-----------------|----------------|--------------|
+| infinix Hot 50 Pro+         | 196.0             | 12.0    | 32.0             | 108.0           | 5300.0             | 6.90            | 2499.0                     | 2024          | 883658.0        | 1.253670       | 1.258590       | 5.726030       | **1.155704** |
+| realme P2 Pro 5G 256GB      | 188.0             | 12.0    | 32.0             | 50.0            | 5500.0             | 6.78            | 2500.0                     | 2024          | 859609.0        | 1.145704       | 0.726996       | 0.525238       | **1.151382** |
+| infinix Note 40 Pro 5G      | 195.0             | 12.0    | 32.0             | 108.0           | 5300.0             | 6.80            | 2499.0                     | 2024          | 655239.0        | 0.820797       | 1.223096       | -4.693683      | **0.928939** |
+| realme P2 Pro 5G 128GB      | 195.0             | 8.0     | 16.0             | 50.0            | 5100.0             | 6.70            | 2500.0                     | 2024          | 883658.0        | 0.764250       | 0.162527       | -4.871083      | **0.872392** |
+| infinix Zero 40 5G          | 195.0             | 12.0    | 50.0             | 108.0           | 5000.0             | 6.78            | 2299.0                     | 2024          | 513284.0        | 0.605866       | 1.705943       | -4.860368      | **0.714008** |
+| infinix Zero 40             | 195.0             | 12.0    | 50.0             | 108.0           | 5000.0             | 6.78            | 2199.0                     | 2024          | 513284.0        | 0.605866       | 1.705943       | -4.860368      | **0.714008** |
+| realme P1 Speed 5G 256GB    | 185.0             | 12.0    | 16.0             | 64.0            | 5100.0             | 6.70            | 1900.0                     | 2024          | 453448.0        | 0.625810       | 0.343095       | 0.285501       | **0.629236** |
+| infinix Note 40 Pro         | 190.0             | 12.0    | 32.0             | 108.0           | 5000.0             | 6.78            | 2199.0                     | 2024          | 453448.0        | 0.613207       | 1.177878       | 0.057811       | **0.621577** |
+| vivo Y200 GT 128GB         | 190.0             | 12.0    | 16.0             | 64.0            | 5000.0             | 6.58            | 2499.0                     | 2024          | 412258.0        | 0.538814       | 0.326941       | -0.008562      | **0.547185** |
+| realme P1 Pro 5G 256GB      | 190.0             | 12.0    | 16.0             | 64.0            | 5200.0             | 6.70            | 2000.0                     | 2024          | 394463.0        | 0.532310       | 0.333954       | 0.044088       | **0.540680** |
+
+
+#### Model 2: Learning to Rank (LTR)
+
+| Company Name | Model Name                | **Predicted Ranking Score** | Launched Price (China/CNY) | Mobile Weight (g) | RAM (GB) | Front Camera (MP) | Back Camera (MP) | Battery Capacity (mAh) | Screen Size (inches) | Performance Score | Launched Year |
+|-------------|---------------------------|----------------------------|----------------------------|-------------------|---------|------------------|-----------------|--------------------|-----------------|-----------------|---------------|
+| realme      | P2 Pro 5G 256GB           | **1.169090**               | 2500.0                     | 188.0             | 12.0    | 32.0             | 50.0            | 5500.0             | 6.78            | 859609.0        | 2024          |
+| infinix     | Hot 50 Pro+               | **0.946402**               | 2499.0                     | 196.0             | 12.0    | 32.0             | 108.0           | 5300.0             | 6.90            | 883658.0        | 2024          |
+| infinix     | Note 40 Pro 5G            | **0.718931**               | 2499.0                     | 195.0             | 12.0    | 32.0             | 108.0           | 5300.0             | 6.80            | 655239.0        | 2024          |
+| realme      | P1 Speed 5G 256GB         | **0.655203**               | 1900.0                     | 185.0             | 12.0    | 16.0             | 64.0            | 5100.0             | 6.70            | 453448.0        | 2024          |
+| infinix     | Zero 40 5G                | **0.613936**               | 2299.0                     | 195.0             | 12.0    | 50.0             | 108.0           | 5000.0             | 6.78            | 513284.0        | 2024          |
+| infinix     | Zero 40                   | **0.613936**               | 2199.0                     | 195.0             | 12.0    | 50.0             | 108.0           | 5000.0             | 6.78            | 513284.0        | 2024          |
+| vivo        | Y200 GT 128GB             | **0.578339**               | 2499.0                     | 190.0             | 12.0    | 16.0             | 64.0            | 5000.0             | 6.58            | 412258.0        | 2024          |
+| realme      | P1 Pro 5G 256GB           | **0.573573**               | 2000.0                     | 190.0             | 12.0    | 16.0             | 64.0            | 5200.0             | 6.70            | 394463.0        | 2024          |
+| realme      | Neo 7 128GB               | **0.555282**               | 2400.0                     | 193.0             | 8.0     | 16.0             | 64.0            | 5000.0             | 6.70            | 513284.0        | 2024          |
+| infinix     | Note 40 Pro               | **0.538993**               | 2199.0                     | 190.0             | 12.0    | 32.0             | 108.0           | 5000.0             | 6.78            | 453448.0        | 2024          |
+
 ## Evaluation
