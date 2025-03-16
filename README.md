@@ -278,6 +278,7 @@ Langkah selanjutnya adalah melakukan Multivariate Analysis. Multivariate Analysi
 Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan tahapan data preparation untuk memastikan bahwa data memiliki kualitas yang baik dan dapat meningkatkan performa model. Tahapan ini mencakup pembersihan data, transformasi fitur, encoding variabel kategorikal, reduksi dimensi, serta standarisasi fitur.
 
 1. Pembersihan data dengan menghapus kolom yang tidak diperlukan
+   
    Dilakukan proses data preparation yang pertama, yaitu menghapus fitur yang dianggap tidak diperlukan dalam membuat sistem rekomendasi. Kolom yang dihapus:
    - Fitur "Launched Price (Pakistan/PKR)", "Launched Price (India/INR)", "Launched Price (USA/USD)", dan "Launched Price (Dubai/AED)" dihapus karena sudah ada fitur Launched Price (China/CNY) yang merepresentasikan harga berdasarkan negara atau mata uang China/CNY.
    - Fitur Processor sudah tidak diperlukan karena sudah ada fitur Performance Score yang merepresentasikan kemampuan processor smartphone.
@@ -295,6 +296,7 @@ Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan t
      - Lebih Efektif Dibanding Log Transformation → Sebelumnya telah dicoba metode Log Transformation dan ternyata Box-Cox lebih baik karena secara dinamis menyesuaikan transformasi berdasarkan distribusi data.]
        
 3. Encoding for Categorical Feature
+   
    Langkah ketiga adalah encoding untuk fitur kategorikal.
   Teknik yang digunakan:
   * Target Encoding untuk fitur Company Name
@@ -313,6 +315,7 @@ Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan t
       * Label Encoding cocok untuk Model Name, karena lebih efisien dalam menyimpan informasi tanpa meningkatkan dimensi dataset secara signifikan
         
 4. Standarisasi Fitur Numerik
+   
    Langkah terakhir adalah melakukan Standarisasi. Standarisasi adalah proses transformasi data numerik agar memiliki skala yang seragam, biasanya dengan mean (rata-rata) = 0 dan standar deviasi = 1. Tujuannya adalah untuk memastikan bahwa setiap fitur memiliki kontribusi yang seimbang dalam model machine learning, terutama jika fitur memiliki skala atau unit yang berbeda. Teknik yang digunakan adalah Standar Scaler. Alasannya adalah untuk menghindari skala yang terlalu besar pada fitur tertentu, yang dapat memengaruhi performa model.
 
 ## Modelling
