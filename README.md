@@ -81,6 +81,7 @@ Karena dataset utama hanya memiliki informasi nama prosesor tanpa data kinerja, 
 ### Struktur Dataset
 1. Dataset Utama (Mobiles Dataset)
 Dataset ini memiliki 930 baris dan 15 kolom. Berikut adalah daftar fitur dalam dataset utama:
+
 | No  | Nama Kolom                     | Deskripsi                                     | Tipe Data  | Jumlah Data Non-Null |
 |-----|--------------------------------|---------------------------------|------------|---------------------|
 | 1   | Company Name                   | Merek smartphone                 | object     | 937                 |
