@@ -102,35 +102,38 @@ Dataset ini memiliki 930 baris dan 15 kolom. Berikut adalah daftar fitur dalam d
 
 2. Dataset Skor Prosesor (Android_SoC.csv & iOS_Performance.csv)
 Dataset ini memiliki 210 baris dan 6 kolom, dengan rincian:
-| No  | Nama Kolom   | Deskripsi |
-|-----|-------------|-----------|
-| 1   | `Platform`  | Sistem operasi (Android/iOS) |
-| 2   | `Category`  | Kategori prosesor (Flagship/Mid-range/Entry) |
-| 3   | `Device`    | Nama prosesor |
-| 4   | `CPU Score` | Skor performa CPU |
-| 5   | `GPU Score` | Skor performa GPU |
-| 6   | `Total Score` | Skor total Antutu (CPU + GPU) |
+
+| No  | Nama Kolom    | Deskripsi                                  | Tipe Data | Jumlah Data Non-Null |
+|-----|-------------|--------------------------------|-----------|---------------------|
+| 1   | Platform    | Sistem operasi (Android/iOS)  | object    | 210                 |
+| 2   | Category    | Kategori prosesor (Flagship/Mid-range/Entry) | object | 210                 |
+| 3   | Device      | Nama prosesor                 | object    | 210                 |
+| 4   | CPU Score   | Skor performa CPU            | int64     | 210                 |
+| 5   | GPU Score   | Skor performa GPU            | int64     | 210                 |
+| 6   | Total Score | Skor total Antutu (CPU + GPU) | int64     | 210                 |
+
 
 3. Dataset Gabungan
 Setelah proses penggabungan berdasarkan nama prosesor, dataset akhir memiliki 937 baris dan 16 kolom dengan tambahan kolom "Performance Score" dari "Total Score" dataset skor prosesor.
-| No  | Nama Kolom                 | Deskripsi |
-|-----|----------------------------|-----------|
-| 1   | `Company Name`             | Merek smartphone |
-| 2   | `Model Name`               | Model smartphone |
-| 3   | `Mobile Weight (g)`        | Berat perangkat (gram) |
-| 4   | `RAM (GB)`                 | Kapasitas RAM (GB) |
-| 5   | `Front Camera (MP)`        | Resolusi kamera depan (MP) |
-| 6   | `Back Camera (MP)`         | Resolusi kamera belakang (MP) |
-| 7   | `Processor`                | Nama prosesor perangkat |
-| 8   | `Battery Capacity (mAh)`   | Kapasitas baterai (mAh) |
-| 9   | `Screen Size (inches)`     | Ukuran layar (inci) |
-| 10  | `Launched Price (Pakistan/PKR)` | Harga saat rilis di Pakistan (PKR) |
-| 11  | `Launched Price (India/INR)`    | Harga saat rilis di India (INR) |
-| 12  | `Launched Price (China/CNY)`    | Harga saat rilis di China (CNY) |
-| 13  | `Launched Price (USA/USD)`      | Harga saat rilis di USA (USD) |
-| 14  | `Launched Price (Dubai/AED)`    | Harga saat rilis di Dubai (AED) |
-| 15  | `Launched Year`                 | Tahun rilis perangkat |
-| 16  | `Performance Score`              | Skor performa perangkat berdasarkan Antutu |
+
+| No  | Nama Kolom                     | Deskripsi                                              | Tipe Data  | Jumlah Data Non-Null |
+|-----|--------------------------------|------------------------------------------------------|------------|---------------------|
+| 1   | Company Name                   | Merek smartphone                                     | object     | 937                 |
+| 2   | Model Name                     | Model smartphone                                    | object     | 937                 |
+| 3   | Mobile Weight (g)              | Berat perangkat dalam gram                          | float64    | 937                 |
+| 4   | RAM (GB)                        | Kapasitas RAM dalam GB                              | float64    | 937                 |
+| 5   | Front Camera (MP)               | Resolusi kamera depan dalam MP                     | float64    | 937                 |
+| 6   | Back Camera (MP)                | Resolusi kamera belakang dalam MP                  | float64    | 937                 |
+| 7   | Processor                       | Nama prosesor perangkat                            | object     | 937                 |
+| 8   | Battery Capacity (mAh)          | Kapasitas baterai dalam mAh                        | float64    | 937                 |
+| 9   | Screen Size (inches)            | Ukuran layar dalam inci                            | float64    | 937                 |
+| 10  | Launched Price (Pakistan/PKR)   | Harga saat rilis di Pakistan dalam PKR            | float64    | 936                 |
+| 11  | Launched Price (India/INR)      | Harga saat rilis di India dalam INR               | float64    | 937                 |
+| 12  | Launched Price (China/CNY)      | Harga saat rilis di China dalam CNY               | float64    | 937                 |
+| 13  | Launched Price (USA/USD)        | Harga saat rilis di USA dalam USD                 | float64    | 937                 |
+| 14  | Launched Price (Dubai/AED)      | Harga saat rilis di Dubai dalam AED               | float64    | 937                 |
+| 15  | Launched Year                   | Tahun rilis perangkat                              | int64      | 937                 |
+| 16  | Performance Score               | Skor performa perangkat berdasarkan Antutu        | float64    | 802                 |
 
 ### Analisis Kondisi Data
 1. Kelengkapan Data
@@ -247,17 +250,58 @@ Langkah selanjutnya adalah melakukan Multivariate Analysis. Multivariate Analysi
    - Pada fitur ‘Processor’, ada banyak kategori dan tidak banyak perbedaan rata-rata harga. Hanya ada beberapa processor yang memiliki perbedaan harga yang signifikan. Sehingga kemungkinan fitur brand memiliki pengaruh atau dampak yang cukup kecil terhadap rata-rata harga.
 
 2. Fitur Numerik
+  ![image](https://github.com/user-attachments/assets/8d7a8db5-6261-439d-84d5-0115404f15cd)
+  Dari grafik pairplot diatas, jika fokus pada sumbu "Launched Price (China/CNY)" dimana merupakan fitur target, dapat disimpulkan bahwa:
+  * Fitur mobile weight (g), Battery Capacity, dan Screen Size memiliki korelasi positif dengan fitur Launched Price (China/CNY) walaupun tidak terlalu terlihat.
+  * Fitur Performance Score memiliki korelasi positif dengan fitur Launched Price (China/CNY).
+  * Fitur RAM, Front Camera, Back Camera, dan Launched Year memiliki pola yang cukup acak dengan fitur Launched Price (China/CNY).
+  * Fitur yang tersisa, Launched Price (Pakistan/PKR), Launched Price (India/INR), Launched Price (USA/USD), dan Launched Price (Dubai/AED) tidak memiliki korelasi dengan fitur Launched Price (China/CNY) karena sebenarnya fitur-fitur tersebut sama-sama merepresentasikan harga, hanya dalam daerah atau mata uang yang berbeda.
+    
+  ![image](https://github.com/user-attachments/assets/e485d3d1-53f6-4f71-a062-9db93af4d023)
+  Untuk lebih jelasnya, dapat diamati grafik korelasi diatas. Dapat disimpulkan bahwa:
+  * Hanya fitur RAM yang memiliki korelasi yang cukup kuat (0.43) dengan Launched Price (China/CNY), Kecuali fitur Launched Price negara lain.
+  * Fitur Mobile Weight memiliki korelasi yang sangat kuat (0.98) dengan Screen Size (Inches) dan korelasi kuat (0.85) dengan Battery Capacity.
+  * Fitur Battery Capacity memiliki korelasi yang kuat (0.88) dengan Screen Size (Inches).
+  * Fitur Performance score memiliki korelasi yang cukup kuat (0.67) dengan Launched Price (China/CNY) dan korelasi yang cukup kuat (0.7) dengan fitur RAM.
 
 ## Data Preparation
-Dari grafik pairplot diatas, jika fokus pada sumbu "Launched Price (China/CNY)" dimana merupakan fitur target, dapat disimpulkan bahwa:
-* Fitur mobile weight (g), Battery Capacity, dan Screen Size memiliki korelasi positif dengan fitur Launched Price (China/CNY) walaupun tidak terlalu terlihat.
-* Fitur Performance Score memiliki korelasi positif dengan fitur Launched Price (China/CNY).
-* Fitur RAM, Front Camera, Back Camera, dan Launched Year memiliki pola yang cukup acak dengan fitur Launched Price (China/CNY).
-* Fitur yang tersisa, Launched Price (Pakistan/PKR), Launched Price (India/INR), Launched Price (USA/USD), dan Launched Price (Dubai/AED) tidak memiliki korelasi dengan fitur Launched Price (China/CNY) karena sebenarnya fitur-fitur tersebut sama-sama merepresentasikan harga, hanya dalam daerah atau mata uang yang berbeda.
+Setelah melakukan EDA dan sebelum membangun model machine learning, diperlukan tahapan data preparation untuk memastikan bahwa data memiliki kualitas yang baik dan dapat meningkatkan performa model. Tahapan ini mencakup pembersihan data, transformasi fitur, encoding variabel kategorikal, reduksi dimensi, serta standarisasi fitur.
+
+1. Pembersihan data dengan menghapus kolom yang tidak diperlukan
+   Dilakukan proses data preparation yang pertama, yaitu menghapus fitur yang dianggap tidak diperlukan dalam membuat sistem rekomendasi. Kolom yang dihapus:
+   - Fitur "Launched Price (Pakistan/PKR)", "Launched Price (India/INR)", "Launched Price (USA/USD)", dan "Launched Price (Dubai/AED)" dihapus karena sudah ada fitur Launched Price (China/CNY) yang merepresentasikan harga berdasarkan negara atau mata uang China/CNY.
+   - Fitur Processor sudah tidak diperlukan karena sudah ada fitur Performance Score yang merepresentasikan kemampuan processor smartphone.
+     
+2. Menangani Missing Values & Outliers
+   ![image](https://github.com/user-attachments/assets/5e250bab-61cf-4dab-806b-0183dd295c3d)
+   Kode diatas berfungsi untuk melihat apakah ada missing values pada dataset. Setelah dijalankan, ternyata pada kolom performance score terdapat 135. Hal ini mungkin dikarenakan kurang lengkapnya dataset kedua yang sebelumnya digabungkan, sehingga ada data yang kosong. Diputuskan untuk menghapus data dengan missing values dan tidak dilakukan imputasi demi menjaga relevansi dan validitas data kolom Performance Score karena sangat penting.
+   - Metode yang digunakan untuk menangani outliers adalah Box-Cox Transformation.
+     Box-Cox Transformation adalah teknik yang digunakan untuk menormalkan distribusi data dan mengurangi pengaruh outliers dengan menerapkan transformasi non-linear pada fitur numerik yang hanya memiliki nilai positif.
+   - Alasan Pemilihan Box-Cox:
+     - Mengatasi Outliers Tanpa Menghapus Data → Tidak ada informasi yang hilang, hanya ditransformasikan.
+     - Membantu Menormalkan Data → Berguna untuk model berbasis regresi dan metode yang mengasumsikan distribusi normal.
+     - Lebih Efektif Dibanding Log Transformation → Sebelumnya telah dicoba metode Log Transformation dan ternyata Box-Cox lebih baik karena secara dinamis menyesuaikan transformasi berdasarkan distribusi data.]
+       
+3. Encoding for Categorical Feature
+   Langkah ketiga adalah encoding untuk fitur kategorikal.
+  Teknik yang digunakan:
+  * Target Encoding untuk fitur Company Name
+  * Label Encoding untuk fitur Model Name
   
-![image](https://github.com/user-attachments/assets/e485d3d1-53f6-4f71-a062-9db93af4d023)
-Untuk lebih jelasnya, dapat diamati grafik korelasi diatas. Dapat disimpulkan bahwa:
-* Hanya fitur RAM yang memiliki korelasi yang cukup kuat (0.43) dengan Launched Price (China/CNY), Kecuali fitur Launched Price negara lain.
-* Fitur Mobile Weight memiliki korelasi yang sangat kuat (0.98) dengan Screen Size (Inches) dan korelasi kuat (0.85) dengan Battery Capacity.
-* Fitur Battery Capacity memiliki korelasi yang kuat (0.88) dengan Screen Size (Inches).
-* Fitur Performance score memiliki korelasi yang cukup kuat (0.67) dengan Launched Price (China/CNY) dan korelasi yang cukup kuat (0.7) dengan fitur RAM.
+  Pada tahap ini, dilakukan encoding untuk fitur kategorikal agar dapat digunakan dalam model machine learning. Teknik yang digunakan adalah Target Encoding untuk fitur Company Name dan Label Encoding untuk fitur Model Name.
+  
+  * Encoding untuk fitur Company Name
+      * Company Name dikonversi ke nilai numerik berdasarkan rata-rata Performance Score dari setiap perusahaan.
+      * Teknik ini membantu mempertahankan hubungan antara kategori dengan target tanpa meningkatkan dimensi dataset.
+  * Encoding untuk fitur Model Name
+      * Model Name dikonversi ke nilai numerik menggunakan Label Encoding, di mana setiap model diberikan nilai unik berdasarkan indeksnya.
+      * Metode ini digunakan karena jumlah kategori pada Model Name sangat banyak, sehingga One-Hot Encoding tidak efisien dan menyebabkan peningkatan dimensi dataset (curse of dimensionality).
+  * Alasan Pemilihan Teknik Encoding
+      * Target Encoding cocok untuk Company Name, karena dapat menangkap hubungan antara brand dan performa perangkat.
+      * Label Encoding cocok untuk Model Name, karena lebih efisien dalam menyimpan informasi tanpa meningkatkan dimensi dataset secara signifikan
+        
+4. Standarisasi Fitur Numerik
+   Langkah terakhir adalah melakukan Standarisasi. Standarisasi adalah proses transformasi data numerik agar memiliki skala yang seragam, biasanya dengan mean (rata-rata) = 0 dan standar deviasi = 1. Tujuannya adalah untuk memastikan bahwa setiap fitur memiliki kontribusi yang seimbang dalam model machine learning, terutama jika fitur memiliki skala atau unit yang berbeda. Teknik yang digunakan adalah Standar Scaler. Alasannya adalah untuk menghindari skala yang terlalu besar pada fitur tertentu, yang dapat memengaruhi performa model.
+
+## Modelling
+## Evaluation
