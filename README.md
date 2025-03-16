@@ -349,7 +349,7 @@ Setelah melakukan Data Preparation, selanjutnya adalah melakukan modelling machi
 
 ---
 
-### **2. Learning to Rank (LTR)**
+**2. Learning to Rank (LTR)**
 
 #### **Kelebihan LTR**
 - **Dapat Menangkap Hubungan Kompleks Antar Fitur**: Mampu memahami pola non-linear yang tidak bisa ditangkap oleh metode berbasis aturan seperti WSM.
@@ -419,7 +419,6 @@ Saat pemodelan sudah selesai dilakukan, model dicoba dengan memberikan rekomenda
 | vivo Y200 GT 128GB         | 190.0             | 12.0    | 16.0             | 64.0            | 5000.0             | 6.58            | 2499.0                     | 2024          | 412258.0        | 0.538814       | 0.326941       | -0.008562      | **0.547185** |
 | realme P1 Pro 5G 256GB      | 190.0             | 12.0    | 16.0             | 64.0            | 5200.0             | 6.70            | 2000.0                     | 2024          | 394463.0        | 0.532310       | 0.333954       | 0.044088       | **0.540680** |
 
-
 #### Model 2: Learning to Rank (LTR)
 
 | Company Name | Model Name                | **Predicted Ranking Score** | Launched Price (China/CNY) | Mobile Weight (g) | RAM (GB) | Front Camera (MP) | Back Camera (MP) | Battery Capacity (mAh) | Screen Size (inches) | Performance Score | Launched Year |
@@ -436,3 +435,79 @@ Saat pemodelan sudah selesai dilakukan, model dicoba dengan memberikan rekomenda
 | infinix     | Note 40 Pro               | **0.538993**               | 2199.0                     | 190.0             | 12.0    | 32.0             | 108.0           | 5000.0             | 6.78            | 453448.0        | 2024          |
 
 ## Evaluation
+Setelah melakukan pemodelan, langkah selanjutnya adalah evaluasi untuk mengukur seberapa baik sistem dalam memberikan rekomendasi yang sesuai dengan preferensi pengguna.
+
+Evaluasi dilakukan dengan menggunakan metrik Precision, yang mengukur sejauh mana rekomendasi yang diberikan oleh sistem sesuai dengan kriteria yang telah ditentukan. Precision mengukur proporsi rekomendasi yang benar-benar relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Tiap baris dianalisis untuk ditentukan apakah sesuai dengan kriteria apa tidak.
+
+Formula perhitungan precision:
+
+![image](https://github.com/user-attachments/assets/54300545-000f-4331-a47a-5208b44c9a1f)
+
+Kriteria yang digunakan untuk menentukan apakah smartphone relevan untuk gaming:
+- RAM lebih dari sama dengan 12 GB
+- Performance Score lebih dari sama dengan 400.000
+
+Berikut adalah hasil evaluasi berdasarkan percobaan sebelumnya untuk preferensi "gaming" dan harga maksimal "2500" CNY dari setiap model:
+
+### Model 1: Weight Sum Model (WSM)
+
+| Model Name                  | RAM (GB) | Performance Score | WSM Score  | Relevan (Gaming) |
+|-----------------------------|---------|------------------|------------|------------------|
+| infinix Hot 50 Pro+         | 12.0    | 883658.0         | 1.155704   | ✅               |
+| realme P2 Pro 5G 256GB      | 12.0    | 859609.0         | 1.151382   | ✅               |
+| infinix Note 40 Pro 5G      | 12.0    | 655239.0         | 0.928939   | ✅               |
+| realme P2 Pro 5G 128GB      | 8.0     | 883658.0         | 0.872392   | ❌               |
+| infinix Zero 40 5G          | 12.0    | 513284.0         | 0.714008   | ✅               |
+| infinix Zero 40             | 12.0    | 513284.0         | 0.714008   | ✅               |
+| realme P1 Speed 5G 256GB    | 12.0    | 453448.0         | 0.629236   | ✅               |
+| infinix Note 40 Pro         | 12.0    | 453448.0         | 0.621577   | ✅               |
+| vivo Y200 GT 128GB         | 12.0    | 412258.0         | 0.547185   | ✅               |
+| realme P1 Pro 5G 256GB      | 12.0    | 394463.0         | 0.540680   | ❌               |
+
+Jumlah rekomendasi yang relevan = 8
+Jumlah total rekomendasi = 10
+**Hasil precission model = 8/10 = 80%**
+
+### Model 2: Learning to Rank (LTR)
+
+| Model Name                  | RAM (GB) | Performance Score | Predicted Ranking Score | Relevan (Gaming) |
+|-----------------------------|---------|------------------|-------------------------|------------------|
+| realme P2 Pro 5G 256GB      | 12.0    | 859609.0         | 1.169090                | ✅               |
+| infinix Hot 50 Pro+         | 12.0    | 883658.0         | 0.946402                | ✅               |
+| infinix Note 40 Pro 5G      | 12.0    | 655239.0         | 0.718931                | ✅               |
+| realme P1 Speed 5G 256GB    | 12.0    | 453448.0         | 0.655203                | ✅               |
+| infinix Zero 40 5G          | 12.0    | 513284.0         | 0.613936                | ✅               |
+| infinix Zero 40             | 12.0    | 513284.0         | 0.613936                | ✅               |
+| vivo Y200 GT 128GB         | 12.0    | 412258.0         | 0.578339                | ✅               |
+| realme P1 Pro 5G 256GB      | 12.0    | 394463.0         | 0.573573                | ❌               |
+| realme Neo 7 128GB         | 8.0     | 513284.0         | 0.555282                | ❌               |
+| infinix Note 40 Pro         | 12.0    | 453448.0         | 0.538993                | ✅               |
+
+Jumlah rekomendasi yang relevan = 8
+Jumlah total rekomendasi = 10
+**Hasil precission model = 8/10 = 80%**
+
+### Kesimpulan Evaluasi
+- Kedua model sama-sama memiliki precision 80% berdasarkan kriteria yang diberikan. Dengan Precision sebesar 80%, berarti 8 dari 10 rekomendasi yang diberikan sistem benar-benar sesuai dengan kriteria gaming. Meskipun masih ada 2 item yang kurang sesuai, hal ini menunjukkan bahwa model sudah cukup efektif dalam menyaring smartphone yang cocok berdasarkan spesifikasi yang diberikan.
+- Kedua model memberikan Top-10 Recommendation yang mirip dengan permintaan yang sama (gaming dan 2500 CNY), tetapi masih ada beberapa item yang berbeda.
+- 2 item yang tidak memenuhi kriteria sebenarnya juga masih cukup dekat dengan kriteria sehingga masih cukup relevan sebagai rekomendasi
+
+## Conclusion
+Berdasarkan evaluasi menggunakan metrik Precision, kedua model, Weighted Sum Model (WSM) dan Learning to Rank (LTR), mencapai nilai Precision sebesar 80%, menunjukkan bahwa sistem rekomendasi mampu memberikan rekomendasi yang cukup relevan dengan preferensi pengguna. WSM memberikan pendekatan berbasis bobot fitur, sedangkan LTR mampu mengurutkan rekomendasi secara lebih optimal berdasarkan relevansi preferensi.
+
+Dari perspektif Business Understanding, model yang dikembangkan telah menjawab semua problem statement dengan baik:
+1. Identifikasi fitur utama yang berpengaruh terhadap pemilihan smartphone berhasil dilakukan, dengan RAM dan skor performa sebagai faktor utama untuk preferensi gaming.
+2. Pengolahan dan normalisasi data, termasuk encoding fitur kategorikal, telah meningkatkan kualitas dataset dalam pemodelan rekomendasi.
+3. Pembangunan sistem rekomendasi berbasis spesifikasi smartphone berhasil dilakukan menggunakan pendekatan Content-Based Filtering.
+
+Penelitian ini juga berhasil mencapai setiap goals yang ditetapkan:
+1. Fitur-fitur relevan telah diidentifikasi dan diekstraksi untuk meningkatkan kualitas rekomendasi.
+2. Implementasi model WSM dan LTR berhasil memberikan rekomendasi yang akurat, sesuai dengan preferensi pengguna.
+3. Evaluasi dengan Precision menunjukkan bahwa sistem dapat memberikan rekomendasi yang relevan dengan tingkat keakuratan yang baik.
+
+Dampak dari solution statement yang dirancang juga terlihat jelas dalam penelitian ini:
+1. Eksplorasi dan preprocessing data berhasil meningkatkan akurasi rekomendasi dengan membersihkan dan menyusun data secara optimal.
+2. Pemilihan metode WSM dan LTR membantu dalam perancangan sistem rekomendasi yang mampu menangkap preferensi pengguna secara lebih personal.
+3. Evaluasi menggunakan metrik Precision memastikan bahwa sistem tidak hanya memberikan rekomendasi sembarang, tetapi benar-benar relevan dengan kebutuhan pengguna.
+
+Dengan hasil ini, sistem rekomendasi smartphone yang dikembangkan dapat membantu konsumen dalam menemukan smartphone yang sesuai dengan preferensi mereka dengan lebih cepat dan akurat, sehingga mempermudah pengambilan keputusan dalam pembelian.
