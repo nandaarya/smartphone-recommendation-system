@@ -75,28 +75,30 @@ Dataset yang digunakan dalam proyek ini berasal dari dua sumber utama:
 
 1. Mobiles Dataset (2025).csv – Dataset utama yang berisi informasi spesifikasi smartphone dari berbagai merek. [Link](https://www.kaggle.com/datasets/abdulmalik1518/mobiles-dataset-2025)
 2. Android_SoC.csv dan iOS_Performance.csv – Dataset tambahan yang berisi skor benchmark prosesor dari Antutu untuk menambahkan nilai performa perangkat. [Link](https://www.kaggle.com/datasets/ireddragonicy/antutu-benchmark)
+
 Karena dataset utama hanya memiliki informasi nama prosesor tanpa data kinerja, maka dilakukan penggabungan dengan dataset skor prosesor menggunakan nama prosesor sebagai primary key. Kolom "Total Score" dari dataset skor prosesor digunakan sebagai representasi kemampuan perangkat karena sudah mencakup skor CPU dan GPU.
 
 ### Struktur Dataset
 1. Dataset Utama (Mobiles Dataset)
 Dataset ini memiliki 930 baris dan 15 kolom. Berikut adalah daftar fitur dalam dataset utama:
-| No  | Nama Kolom                  | Deskripsi |
-|-----|-----------------------------|-----------|
-| 1   | `Company Name`              | Merek smartphone |
-| 2   | `Model Name`                | Model smartphone |
-| 3   | `Mobile Weight`             | Berat perangkat (gram) |
-| 4   | `RAM`                       | Kapasitas RAM (GB) |
-| 5   | `Front Camera`              | Resolusi kamera depan (MP) |
-| 6   | `Back Camera`               | Resolusi kamera belakang (MP) |
-| 7   | `Processor`                 | Nama prosesor perangkat |
-| 8   | `Battery Capacity`          | Kapasitas baterai (mAh) |
-| 9   | `Screen Size`               | Ukuran layar (inci) |
-| 10  | `Launched Price (Pakistan)` | Harga saat rilis di Pakistan (PKR) |
-| 11  | `Launched Price (India)`    | Harga saat rilis di India (INR) |
-| 12  | `Launched Price (China)`    | Harga saat rilis di China (CNY) |
-| 13  | `Launched Price (USA)`      | Harga saat rilis di USA (USD) |
-| 14  | `Launched Price (Dubai)`    | Harga saat rilis di Dubai (AED) |
-| 15  | `Launched Year`             | Tahun rilis perangkat |
+| No  | Nama Kolom                   | Deskripsi                            |
+|-----|------------------------------|--------------------------------------|
+| 1   | `Company Name`               | Merek smartphone                    |
+| 2   | `Model Name`                 | Model smartphone                    |
+| 3   | `Mobile Weight (g)`          | Berat perangkat (gram)              |
+| 4   | `RAM (GB)`                   | Kapasitas RAM (GB)                  |
+| 5   | `Front Camera (MP)`          | Resolusi kamera depan (MP)          |
+| 6   | `Back Camera (MP)`           | Resolusi kamera belakang (MP)       |
+| 7   | `Processor`                  | Nama prosesor perangkat             |
+| 8   | `Battery Capacity (mAh)`     | Kapasitas baterai (mAh)             |
+| 9   | `Screen Size (inches)`       | Ukuran layar (inci)                 |
+| 10  | `Launched Price (Pakistan/PKR)` | Harga saat rilis di Pakistan (PKR) |
+| 11  | `Launched Price (India/INR)`    | Harga saat rilis di India (INR)    |
+| 12  | `Launched Price (China/CNY)`    | Harga saat rilis di China (CNY)    |
+| 13  | `Launched Price (USA/USD)`      | Harga saat rilis di USA (USD)      |
+| 14  | `Launched Price (Dubai/AED)`    | Harga saat rilis di Dubai (AED)    |
+| 15  | `Launched Year`              | Tahun rilis perangkat               |
+| 16  | `Performance Score`          | Skor performa berdasarkan benchmark |
 
 2. Dataset Skor Prosesor (Android_SoC.csv & iOS_Performance.csv)
 Dataset ini memiliki 210 baris dan 6 kolom, dengan rincian:
