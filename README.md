@@ -81,24 +81,23 @@ Karena dataset utama hanya memiliki informasi nama prosesor tanpa data kinerja, 
 ### Struktur Dataset
 1. Dataset Utama (Mobiles Dataset)
 Dataset ini memiliki 930 baris dan 15 kolom. Berikut adalah daftar fitur dalam dataset utama:
-| No  | Nama Kolom                   | Deskripsi                            |
-|-----|------------------------------|--------------------------------------|
-| 1   | `Company Name`               | Merek smartphone                    |
-| 2   | `Model Name`                 | Model smartphone                    |
-| 3   | `Mobile Weight (g)`          | Berat perangkat (gram)              |
-| 4   | `RAM (GB)`                   | Kapasitas RAM (GB)                  |
-| 5   | `Front Camera (MP)`          | Resolusi kamera depan (MP)          |
-| 6   | `Back Camera (MP)`           | Resolusi kamera belakang (MP)       |
-| 7   | `Processor`                  | Nama prosesor perangkat             |
-| 8   | `Battery Capacity (mAh)`     | Kapasitas baterai (mAh)             |
-| 9   | `Screen Size (inches)`       | Ukuran layar (inci)                 |
-| 10  | `Launched Price (Pakistan/PKR)` | Harga saat rilis di Pakistan (PKR) |
-| 11  | `Launched Price (India/INR)`    | Harga saat rilis di India (INR)    |
-| 12  | `Launched Price (China/CNY)`    | Harga saat rilis di China (CNY)    |
-| 13  | `Launched Price (USA/USD)`      | Harga saat rilis di USA (USD)      |
-| 14  | `Launched Price (Dubai/AED)`    | Harga saat rilis di Dubai (AED)    |
-| 15  | `Launched Year`              | Tahun rilis perangkat               |
-| 16  | `Performance Score`          | Skor performa berdasarkan benchmark |
+| No  | Nama Kolom                     | Deskripsi                                     | Tipe Data  | Jumlah Data Non-Null |
+|-----|--------------------------------|---------------------------------|------------|---------------------|
+| 1   | Company Name                   | Merek smartphone                 | object     | 937                 |
+| 2   | Model Name                     | Model smartphone                 | object     | 937                 |
+| 3   | Mobile Weight (g)              | Berat perangkat (gram)            | float64    | 937                 |
+| 4   | RAM (GB)                       | Kapasitas RAM (GB)                | float64    | 937                 |
+| 5   | Front Camera (MP)              | Resolusi kamera depan (MP)        | float64    | 937                 |
+| 6   | Back Camera (MP)               | Resolusi kamera belakang (MP)     | float64    | 937                 |
+| 7   | Processor                      | Nama prosesor perangkat           | object     | 937                 |
+| 8   | Battery Capacity (mAh)         | Kapasitas baterai (mAh)           | float64    | 937                 |
+| 9   | Screen Size (inches)           | Ukuran layar (inci)               | float64    | 937                 |
+| 10  | Launched Price (Pakistan/PKR)  | Harga saat rilis di Pakistan (PKR)| float64    | 936                 |
+| 11  | Launched Price (India/INR)     | Harga saat rilis di India (INR)   | float64    | 937                 |
+| 12  | Launched Price (China/CNY)     | Harga saat rilis di China (CNY)   | float64    | 937                 |
+| 13  | Launched Price (USA/USD)       | Harga saat rilis di USA (USD)     | float64    | 937                 |
+| 14  | Launched Price (Dubai/AED)     | Harga saat rilis di Dubai (AED)   | float64    | 937                 |
+| 15  | Launched Year                  | Tahun rilis perangkat             | int64      | 937                 |
 
 2. Dataset Skor Prosesor (Android_SoC.csv & iOS_Performance.csv)
 Dataset ini memiliki 210 baris dan 6 kolom, dengan rincian:
